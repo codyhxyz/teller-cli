@@ -20,7 +20,6 @@ Then paste the markdown output into the conversation.
 | Balance | `GET /accounts/:id/balances` | Adds current cash/debt position to context. |
 | Transaction | `GET /accounts/:id/transactions` | Provides concrete income/spend history. |
 | AI context | local markdown/JSON output | Portable summary for an agent/LLM conversation. |
-| Secret material | access token, cert, private key | Loaded locally from `.env`; never committed or logged. |
 
 ## Approach
 
@@ -30,7 +29,6 @@ Then paste the markdown output into the conversation.
 4. Locally filter/summarize by date window and limit.
 5. Print either markdown context for an AI, tables for humans, or JSON for other tools.
 
-No database, server, auth system, or background job is included. YAGNI.
 
 ## Structure
 
