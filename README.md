@@ -1,4 +1,4 @@
-# teller-ai-wrapper
+# money
 
 Minimal pnpm CLI/library wrapper around the Teller API that turns concrete account, balance, and transaction data into AI-ready financial context.
 
