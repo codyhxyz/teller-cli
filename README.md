@@ -1,14 +1,12 @@
 <p align="center">
-  <img src="docs/banner.svg" alt="money — turn your real banking data into AI-ready financial context" width="640" />
+  <img src="docs/banner.svg" alt="money — lets your money talk to you" width="640" />
 </p>
 
 # money
 
-**Turn your real banking data into AI-ready financial context.**
+**Money lets your money talk to you.**
 
-`money` is a tiny local CLI that fetches your Teller balances and transactions, summarizes them on your machine, and prints structured markdown you can paste into an AI conversation.
-
-No hosted backend. No database. No telemetry. You decide what output gets shared.
+I built `money` as the simplest-possible CLI tool to fetch my bank balances and transaction data so that my AI agents can give me meaningful financial advice grounded in data.
 
 <p>
   <a href="https://github.com/codyhxyz/money/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/codyhxyz/money/ci.yml?branch=main&label=CI&logo=github&style=flat-square"></a>
@@ -31,9 +29,7 @@ No hosted backend. No database. No telemetry. You decide what output gets shared
 
 ## About
 
-AI assistants can reason about money, but they usually lack the concrete facts they need: account balances, recent transactions, income, spending, merchants, and categories.
-
-`money` gives them that context in the simplest possible form: plain markdown.
+`money` gives AI assistants the financial context that will help them help you make better financial decisions.
 
 It can include:
 
