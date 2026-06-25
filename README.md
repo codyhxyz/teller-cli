@@ -16,17 +16,22 @@ I built `teller-cli` as the simplest-possible CLI tool to fetch my bank balances
 `teller-cli` is not a budgeting app. It is not a YNAB or Rocket Money replacement. It just prints transaction and balance data to the console. 
 The design philosophy for this tool was inspired by Mario Zechner's pi: keep the system as minimal as possible, with an eye for making it modular and extensible. AI agents can use this to do awesome stuff. You can't imagine all of what users will want from it, so don't overbuild. Restraint enables users to extend your tool into their own bespoke software.
 
-## Whyyy do I need this
-You *could* just use the Teller API directly, I won't stop you. But this repo handles all of the following for you, making it an easy starting point for building your own personal financial advisor:
+## How you should use this
+Send this repo's link to your AI! Empower them with your transaction data so they can give you accurate financial advice.
+
+## Why you should use this
+You *could* just use the Teller API directly to fetch your bank data, I won't stop you. But this open-source repo handles all the following basics for you, making it much easier to set up your own personal financial advisor:
+### Fewer papercuts
  - credential/env setup in one place
  - mTLS handled
- - account + balance + transaction fetching combined
+ - safer error handling/redaction defaults
+### Quality-of-life features
+ - fetch account + balance + transactions in one call
  - date/window filtering
  - spending/income/net summaries
  - category/merchant rollups
- - markdown output for AI
+ - human & AI-readable markdown output
  - optional JSON for scripts
- - safer error handling/redaction defaults
 
 ## Getting Started
 
@@ -34,7 +39,7 @@ You *could* just use the Teller API directly, I won't stop you. But this repo ha
 
 If you are using an AI coding agent, point it at this README and say:
 
-> Set up `github.com/codyhxyz/money` and give me my financial context for the last 90 days.
+> Set up `github.com/codyhxyz/teller-cli` and give me my financial context for the last 90 days.
 
 Your agent can install dependencies and run commands, but only you should provide banking credentials:
 
@@ -54,11 +59,11 @@ You need:
 
 ### Installation
 
-`money` is currently installed from source:
+`teller-cli` is currently installed from source:
 
 ```sh
-git clone https://github.com/codyhxyz/money.git
-cd money
+git clone https://github.com/codyhxyz/teller-cli.git
+cd teller-cli
 npm install
 cp .env.example .env
 ```
@@ -71,9 +76,9 @@ Keep `.env`, certificates, private keys, and tokens out of git. This repo alread
 
 | Command | Output |
 | --- | --- |
-| `npm run money -- context` | AI-ready markdown summary of balances and recent transactions |
-| `npm run money -- accounts` | Account and balance table |
-| `npm run money -- transactions` | Recent transaction table |
+| `npm run teller-cli -- context` | AI-ready markdown summary of balances and recent transactions |
+| `npm run teller-cli -- accounts` | Account and balance table |
+| `npm run teller-cli -- transactions` | Recent transaction table |
 
 
 ## How It Works
@@ -90,7 +95,7 @@ flowchart LR
 
 ## Security & Privacy
 
-This is a minimal, local wrapper around Teller. I don't touch your data, that's between you and Teller.
+This is a minimal, local wrapper around Teller. I don't touch your data—that's between you and Teller. 🤫
 
 
 ## Limitations
@@ -121,4 +126,4 @@ Two obvious directions you can take this project:
 
 ## License
 
-[AGPL-3.0-only](./LICENSE) © 2026
+[AGPL-3.0-only](./LICENSE) © 2026 - meaning I've committed this work to the Public Domain. If you want to remix this work, this license stipulates you must commit that remix to the public domain, too. Sharing is caring!
