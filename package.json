@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Turn your Teller banking data into AI-ready financial context.",
   "type": "module",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "bin": {
     "money": "dist/cli.js"
   },
