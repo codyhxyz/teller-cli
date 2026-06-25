@@ -16,6 +16,18 @@ I built `teller-cli` as the simplest-possible CLI tool to fetch my bank balances
 `teller-cli` is not a budgeting app. It is not a YNAB or Rocket Money replacement. It just prints transaction and balance data to the console. 
 The design philosophy for this tool was inspired by Mario Zechner's pi: keep the system as minimal as possible, with an eye for making it modular and extensible. AI agents can use this to do awesome stuff. You can't imagine all of what users will want from it, so don't overbuild. Restraint enables users to extend your tool into their own bespoke software.
 
+## Whyyy do I need this
+You *could* just use the Teller API directly, I won't stop you. But this repo handles all of the following for you, making it an easy starting point for building your own personal financial advisor:
+ - credential/env setup in one place
+ - mTLS handled
+ - account + balance + transaction fetching combined
+ - date/window filtering
+ - spending/income/net summaries
+ - category/merchant rollups
+ - markdown output for AI
+ - optional JSON for scripts
+ - safer error handling/redaction defaults
+
 ## Getting Started
 
 ### Quickstart
