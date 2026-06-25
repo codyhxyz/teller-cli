@@ -59,24 +59,16 @@ Teller → local CLI → markdown summary → AI conversation
 You need:
 
 - Node.js 20 or newer
-- pnpm
 - a [Teller](https://teller.io) account
 - a Teller application certificate and private key
 - a Teller access token for your linked bank account
-
-If you do not have pnpm yet:
-
-```sh
-corepack enable
-# or: npm i -g pnpm
-```
 
 ### Installation
 
 ```sh
 git clone https://github.com/codyhxyz/money.git
 cd money
-pnpm install
+npm install
 cp .env.example .env
 ```
 
@@ -98,13 +90,13 @@ Your agent can install dependencies and run commands, but only you should provid
 Run:
 
 ```sh
-pnpm teller context --days 90
+npm run money -- context --days 90
 ```
 
 For output that is safer to return into an AI conversation, redact Teller account/enrollment IDs:
 
 ```sh
-pnpm teller context --days 90 --redact-accounts
+npm run money -- context --days 90 --redact-accounts
 ```
 
 Redaction does **not** remove transaction amounts, dates, merchants, or categories. Review output before sharing it anywhere public.
@@ -115,9 +107,9 @@ Redaction does **not** remove transaction amounts, dates, merchants, or categori
 
 | Command | Output |
 | --- | --- |
-| `pnpm teller context` | AI-ready markdown summary of balances and recent transactions |
-| `pnpm teller accounts` | Account and balance table |
-| `pnpm teller transactions` | Recent transaction table |
+| `npm run money -- context` | AI-ready markdown summary of balances and recent transactions |
+| `npm run money -- accounts` | Account and balance table |
+| `npm run money -- transactions` | Recent transaction table |
 
 `context` is the default command and the main reason this project exists.
 
@@ -136,22 +128,22 @@ Redaction does **not** remove transaction amounts, dates, merchants, or categori
 
 ```sh
 # AI-ready markdown for the last 90 days
-pnpm teller context --days 90
+npm run money -- context --days 90
 
 # Redact Teller IDs before returning/pasting output
-pnpm teller context --days 90 --redact-accounts
+npm run money -- context --days 90 --redact-accounts
 
 # Last 30 days of transactions as JSON
-pnpm teller transactions --days 30 --json
+npm run money -- transactions --days 30 --json
 
 # Restrict context to specific accounts
-pnpm teller context --account acc_xxx --account acc_yyy
+npm run money -- context --account acc_xxx --account acc_yyy
 
 # Print balances as a terminal table
-pnpm teller accounts
+npm run money -- accounts
 ```
 
-`pnpm teller` is the from-source invocation. After linking or installing the package globally, the binary is `money`, e.g.:
+`npm run money -- <command>` is the from-source invocation. After linking or installing the package globally, the binary is `money`, e.g.:
 
 ```sh
 money context --days 90
@@ -171,7 +163,7 @@ money context --days 90
 
 ### Example output
 
-Abbreviated `pnpm teller context --days 90 --redact-accounts` output:
+Abbreviated `npm run money -- context --days 90 --redact-accounts` output:
 
 ```markdown
 # Financial context from Teller
@@ -264,10 +256,10 @@ Current scope:
 Issues and pull requests are welcome, especially for small improvements that preserve the local-first, minimal shape of the project.
 
 ```sh
-pnpm install
-pnpm typecheck
-pnpm build
-pnpm dev context --days 30
+npm install
+npm run typecheck
+npm run build
+npm run dev -- context --days 30
 ```
 
 For bug reports, include:
