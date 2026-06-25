@@ -14,10 +14,11 @@ I built `teller-cli` as the simplest-possible CLI tool to fetch my bank balances
 ## What this isn't
 
 `teller-cli` is not a budgeting app. It is not a YNAB or Rocket Money replacement. It just prints transaction and balance data to the console. 
-The design philosophy for this tool was inspired by Mario Zechner's pi: keep the system as minimal as possible, with an eye for making it modular and extensible. AI agents can use this to do awesome stuff. You can't imagine all of what users will want from it, so don't overbuild. Restraint enables users to extend your tool into their own bespoke software.
+The design philosophy for this tool: keep the system as minimal as possible, with an eye for making it modular and extensible. AI agents can use this to do awesome stuff. 
 
 ## How you should use this
 Send this repo's link to your AI! Empower them with your transaction data so they can give you accurate financial advice.
+
 Better yet, remix this project for your own needs. Build your own financial assistant that does what YOU need it to. This is just a minimally-opinionated jumping off point.
 
 ## Why you should use this
