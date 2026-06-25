@@ -6,7 +6,7 @@
 
 **Turn your real banking data into AI-ready financial context.**
 
-`money` is a tiny local CLI for people who want financial advice from an AI assistant without asking the assistant to guess. It fetches balances and transactions from the [Teller API](https://teller.io), summarizes them locally, and prints structured markdown you can paste into an LLM conversation.
+`money` is a tiny local CLI that fetches your Teller balances and transactions, summarizes them on your machine, and prints structured markdown you can paste into an AI conversation.
 
 No hosted backend. No database. No telemetry. You decide what output gets shared.
 
@@ -20,7 +20,7 @@ No hosted backend. No database. No telemetry. You decide what output gets shared
 <p>
   <a href="#getting-started">Getting Started</a> ·
   <a href="#usage">Usage</a> ·
-  <a href="#how-it-works">How It Works</a> ·
+  <a href="#configuration">Configuration</a> ·
   <a href="#security--privacy">Security</a> ·
   <a href="https://github.com/codyhxyz/money/issues">Issues</a>
 </p>
@@ -31,7 +31,7 @@ No hosted backend. No database. No telemetry. You decide what output gets shared
 
 ## About
 
-AI assistants are good at financial reasoning, but they usually lack the one thing they need most: accurate context about your actual accounts and recent transactions.
+AI assistants can reason about money, but they usually lack the concrete facts they need: account balances, recent transactions, income, spending, merchants, and categories.
 
 `money` gives them that context in the simplest possible form: plain markdown.
 
@@ -44,7 +44,7 @@ It can include:
 - top merchants/counterparties
 - optional redaction of Teller account and enrollment IDs
 
-The intended workflow is:
+The workflow is intentionally boring:
 
 ```text
 Teller → local CLI → markdown summary → AI conversation
@@ -63,7 +63,34 @@ You need:
 - a Teller application certificate and private key
 - a Teller access token for your linked bank account
 
+### Quickstart
+
+The first successful run is an AI-ready financial context summary:
+
+```sh
+npm run money -- context --days 90
+```
+
+For output that is safer to return into an AI conversation, redact Teller account/enrollment IDs:
+
+```sh
+npm run money -- context --days 90 --redact-accounts
+```
+
+If you are using an AI coding agent, point it at this README and say:
+
+> Set up `github.com/codyhxyz/money` and give me my financial context for the last 90 days.
+
+Your agent can install dependencies and run commands, but only you should provide banking credentials:
+
+1. Download your **Teller certificate + private key** from the Teller Dashboard.
+2. Get an **access token** by linking your bank with Teller Connect. You can serve [`examples/login.html`](./examples/login.html) locally, connect in the browser, and copy the token into `.env`.
+
+Redaction does **not** remove transaction amounts, dates, merchants, or categories. Review output before sharing it anywhere public.
+
 ### Installation
+
+`money` is currently installed from source:
 
 ```sh
 git clone https://github.com/codyhxyz/money.git
@@ -76,32 +103,9 @@ Then fill in `.env` with your Teller credentials.
 
 Keep `.env`, certificates, private keys, and tokens out of git. This repo already gitignores common credential paths and PEM/key/cert files.
 
-### Quickstart
-
-If you are using an AI coding agent, point it at this README and say:
-
-> Set up `github.com/codyhxyz/money` and give me my financial context for the last 90 days.
-
-Your agent can install dependencies and run commands, but only you should provide banking credentials:
-
-1. Download your **Teller certificate + private key** from the Teller Dashboard.
-2. Get an **access token** by linking your bank with Teller Connect. You can serve [`examples/login.html`](./examples/login.html) locally, connect in the browser, and copy the token into `.env`.
-
-Run:
-
-```sh
-npm run money -- context --days 90
-```
-
-For output that is safer to return into an AI conversation, redact Teller account/enrollment IDs:
-
-```sh
-npm run money -- context --days 90 --redact-accounts
-```
-
-Redaction does **not** remove transaction amounts, dates, merchants, or categories. Review output before sharing it anywhere public.
-
 ## Usage
+
+`context` is the default command and the main reason this project exists.
 
 ### Commands
 
@@ -110,19 +114,6 @@ Redaction does **not** remove transaction amounts, dates, merchants, or categori
 | `npm run money -- context` | AI-ready markdown summary of balances and recent transactions |
 | `npm run money -- accounts` | Account and balance table |
 | `npm run money -- transactions` | Recent transaction table |
-
-`context` is the default command and the main reason this project exists.
-
-### Options
-
-| Flag | Applies to | Default | Purpose |
-| --- | --- | --- | --- |
-| `--days <n>` | `context`, `transactions` | `90` | Days of transaction history to include |
-| `--limit <n>` | `context`, `transactions` | `200` | Maximum transactions to fetch/print |
-| `--account <id>` | `context`, `transactions` | all accounts | Limit output to a Teller account ID; repeat for multiple accounts |
-| `--json` | all commands | off | Print JSON instead of markdown/table output |
-| `--redact-accounts` | `context` | off | Replace Teller account/enrollment IDs with stable placeholders |
-| `--env <path>` | global | `.env` | Load configuration from another env file |
 
 ### Examples
 
@@ -148,18 +139,6 @@ npm run money -- accounts
 ```sh
 money context --days 90
 ```
-
-### Configuration
-
-| Variable | Required | Purpose |
-| --- | --- | --- |
-| `TELLER_ACCESS_TOKEN` | yes | Access token from Teller Connect |
-| `TELLER_CERT_PATH` / `TELLER_KEY_PATH` | yes* | Paths to certificate/private-key PEM files |
-| `TELLER_CERT` / `TELLER_KEY` | yes* | Inline PEM contents; use `\n` escapes |
-| `TELLER_APPLICATION_ID` | optional | Used by `examples/login.html` |
-| `TELLER_API_BASE_URL` | optional | Defaults to `https://api.teller.io` |
-
-\* Provide credentials either as file paths or inline PEM contents.
 
 ### Example output
 
@@ -196,6 +175,29 @@ Window: last 90 days
 Use this as concrete context for financial coaching. Do not infer facts that are not present in the data.
 ```
 
+## Configuration
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `TELLER_ACCESS_TOKEN` | yes | Access token from Teller Connect |
+| `TELLER_CERT_PATH` / `TELLER_KEY_PATH` | yes* | Paths to certificate/private-key PEM files |
+| `TELLER_CERT` / `TELLER_KEY` | yes* | Inline PEM contents; use `\n` escapes |
+| `TELLER_APPLICATION_ID` | optional | Used by `examples/login.html` |
+| `TELLER_API_BASE_URL` | optional | Defaults to `https://api.teller.io` |
+
+\* Provide credentials either as file paths or inline PEM contents.
+
+Options:
+
+| Flag | Applies to | Default | Purpose |
+| --- | --- | --- | --- |
+| `--days <n>` | `context`, `transactions` | `90` | Days of transaction history to include |
+| `--limit <n>` | `context`, `transactions` | `200` | Maximum transactions to fetch/print |
+| `--account <id>` | `context`, `transactions` | all accounts | Limit output to a Teller account ID; repeat for multiple accounts |
+| `--json` | all commands | off | Print JSON instead of markdown/table output |
+| `--redact-accounts` | `context` | off | Replace Teller account/enrollment IDs with stable placeholders |
+| `--env <path>` | global | `.env` | Load configuration from another env file |
+
 ## How It Works
 
 ```mermaid
@@ -220,6 +222,18 @@ src/
 examples/login.html # Teller Connect token helper
 .env.example        # safe config template
 ```
+
+## Design Philosophy
+
+`money` is inspired by a simple belief: AI financial help gets better when the assistant has real context instead of guesses.
+
+The project values:
+
+- **Concrete context.** Recent transactions, balances, income, spending, merchants, and categories are more useful than vague prompts.
+- **Human inspection.** The output is something you can read before deciding whether to paste it into another tool.
+- **Composability.** `money` prepares financial context for other tools instead of trying to become the whole financial product.
+- **Minimalism.** The core should stay small: fetch data, summarize it, print useful context.
+- **Developer friendliness.** Setup should stay approachable for people experimenting with their own financial data.
 
 ## Security & Privacy
 
@@ -251,16 +265,31 @@ Current scope:
 - There is no budgeting engine, forecasting model, or category-learning system.
 - Installation is currently from source.
 
-## Contributing / Development
+## Extending / Ideas
 
-Issues and pull requests are welcome, especially for small improvements that preserve the local-first, minimal shape of the project.
+Two obvious directions:
 
-```sh
-npm install
-npm run typecheck
-npm run build
-npm run dev -- context --days 30
-```
+1. Use `money` as context input for tools designed around specific financial tasks:
+   - budget creation
+   - personal finance management
+   - cash-flow review
+   - spending analysis
+   - subscription cleanup
+   - financial planning
+
+2. Add support for other banking data providers:
+   - [Plaid](https://plaid.com/)
+   - [Quiltt](https://www.quiltt.io/)
+   - [MX](https://www.mx.com/)
+
+Any of these providers could make sense. Teller is the default here because it works well for a minimalist developer tool: it is straightforward to set up, does not require waiting for approval before experimenting, and is friendly to someone building against their own financial data.
+
+If you want to build one of these, open an issue first so we can decide whether it belongs in core, an example, or a separate project.
+
+## Support
+
+- [GitHub issues](https://github.com/codyhxyz/money/issues) — bugs and feature requests
+- This README — setup, usage, security model, and development notes
 
 For bug reports, include:
 
@@ -271,10 +300,16 @@ For bug reports, include:
 
 Never include credentials or real account identifiers.
 
-## Support
+## Contributing / Development
 
-- [GitHub issues](https://github.com/codyhxyz/money/issues) — bugs and feature requests
-- This README — setup, usage, security model, and development notes
+Small fixes are welcome, especially improvements that preserve the local-first, minimal shape of the project. Please open an issue before large feature PRs.
+
+```sh
+npm install
+npm run typecheck
+npm run build
+npm run dev -- context --days 30
+```
 
 ## License
 
