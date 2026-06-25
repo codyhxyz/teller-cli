@@ -15,14 +15,6 @@ I built `money` as the simplest-possible CLI tool to fetch my bank balances and 
   <a href="https://github.com/codyhxyz/money"><img alt="last commit" src="https://img.shields.io/github/last-commit/codyhxyz/money?style=flat-square"></a>
 </p>
 
-<p>
-  <a href="#getting-started">Getting Started</a> ·
-  <a href="#usage">Usage</a> ·
-  <a href="#configuration">Configuration</a> ·
-  <a href="#security--privacy">Security</a> ·
-  <a href="https://github.com/codyhxyz/money/issues">Issues</a>
-</p>
-
 <p align="center">
   <img src="docs/demo.gif" alt="money context demo" width="100%" />
 </p>
