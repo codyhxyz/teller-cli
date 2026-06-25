@@ -18,6 +18,7 @@ The design philosophy for this tool was inspired by Mario Zechner's pi: keep the
 
 ## How you should use this
 Send this repo's link to your AI! Empower them with your transaction data so they can give you accurate financial advice.
+Better yet, remix this project for your own needs. Build your own financial assistant that does what YOU need it to. This is just a minimally-opinionated jumping off point.
 
 ## Why you should use this
 You *could* just use the Teller API directly to fetch your bank data, I won't stop you. But this open-source repo handles all the following basics for you, making it much easier to set up your own personal financial advisor:
@@ -111,7 +112,7 @@ Current scope:
 
 Two obvious directions you can take this project if you want to remix it:
 
-1. Extend the tool for specific financial uses:
+1. Customize the tool with a nice frontend, and backend convenience features tailored for specific financial workflows:
    - budget creation
    - cash-flow review
    - spending analysis
